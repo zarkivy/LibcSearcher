@@ -1,0 +1,6 @@
+README.md
+setup.py
+LibcSearcher.egg-info/PKG-INFO
+LibcSearcher.egg-info/SOURCES.txt
+LibcSearcher.egg-info/dependency_links.txt
+LibcSearcher.egg-info/top_level.txt

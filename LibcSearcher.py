@@ -1,4 +1,4 @@
-import requests, json, sys
+import requests, json
 
 
 API_FIND = 'https://libc.rip/api/find' 
@@ -27,15 +27,13 @@ class LibcSearcher(object) :
             self.query_libc()
         if self.the_libc is None :
             self.choose_libc()
-        if symbol_name not in self.constraint :
-            self.query_symbol(libc_id = self.the_libc['id'], symbol_name = symbol_name)
-        return self.constraint[symbol_name]
+        return self.query_symbol(libc_id = self.the_libc['id'], symbol_name = symbol_name)
 
 
     def choose_libc(self) -> None :
         if len(self.libc_list) == 0 :
             print("\x1b[1;31m" + "No libc satisfies constraints." + "\x1b[0m")
-            sys.exit()
+            exit()
 
         elif len(self.libc_list) == 1 :
             self.the_libc = self.libc_list[0]
@@ -62,4 +60,4 @@ class LibcSearcher(object) :
     def query_symbol(self, libc_id:str, symbol_name:str) -> int :
         payload = {"symbols": [symbol_name]}
         result = requests.post(API_LIBC+libc_id, data=json.dumps(payload), headers=HEADERS)
-        self.constraint[symbol_name] = int(json.loads(result.text)['symbols'][symbol_name], 16)
+        return int(json.loads(result.text)['symbols'][symbol_name], 16)
