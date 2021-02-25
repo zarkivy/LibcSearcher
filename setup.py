@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="LibcSearcher",
-    version="0.9",
+    version="1.0",
     description="Python wrapper for libc-database.",
     author="IZAY01",
     author_email="IZAYOInt0x80@gmail.com",

@@ -42,6 +42,8 @@ obj.dump("printf") # 根据已有约束条件，查询某个符号在 Libc 中�
 ```python
 len(obj) # 返回在当前约束条件下，可能的 Libc 数量
 
+print(obj) # 若 Libc 已被唯一确定，打印其详细信息
+
 for libc in obj :
     print(libc) # 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
 
