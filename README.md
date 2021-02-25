@@ -43,7 +43,7 @@ obj.dump("printf") # 根据已有约束条件，查询某个符号在 Libc 中�
 len(obj) # 返回在当前约束条件下，可能的 Libc 数量
 
 for libc in obj :
-	print(libc) # 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
+    print(libc) # 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
 
 obj.select_libc() # 打印可能的 Libc 列表，手动选择一个认为正确的 Libc
 obj.select_libc(2) # 手动选择 2 号 Libc 作为正确的 Libc

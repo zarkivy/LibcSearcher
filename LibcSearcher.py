@@ -3,7 +3,7 @@ import requests, json
 
 API_FIND = 'https://libc.rip/api/find' 
 API_LIBC = 'https://libc.rip/api/libc/'
-HEADERS = {'Content-Type': 'application/json'}
+HEADERS  = {'Content-Type': 'application/json'}
 
 
 class LibcSearcher() :
@@ -60,8 +60,8 @@ class LibcSearcher() :
             self.select_libc()
     
 
-    def select_libc(self, chosen_index=-1) :
-        if chosen_index == -1 :
+    def select_libc(self, chosen_index=0xDEADBEEF) :
+        if chosen_index == 0xDEADBEEF :
             self.query_libc()
             for index, libc in enumerate(self.libc_list) :
                 print(str(index) + " - " + libc['id'])
