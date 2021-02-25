@@ -11,7 +11,7 @@
     - 上游数据库更新时不方便及时获悉，且需要手动更新本地数据库。
   - libc-database 现已提供 web-api，可直接向其服务发起请求获取查询结果，解决了上述两个问题。
 - 同时为了确保师傅们以前的 exp 的可用性，LibcSearcher-ng 将以与原 LibcSearcher 完全相同的接口来构建。
-- 比起原版 LibcSearcher 只多了一个缺点：断网就不可用了🤣。
+- 比起原版 LibcSearcher 只多了一个缺点：断网就不可用了。🤣
 - 若需要基于本地数据库的~~可以抵御断网攻击的~~ LibcSearcher，github 上已有其他师傅维护了相应实现的 LibcSearcher 仓库。
 
 <br>
@@ -33,19 +33,19 @@ sudo python3 setup.py develop
 ```python
 from LibcSearcher import *
 obj = LibcSearcher("fgets", 0x7ff39014bd90) # 使用一个已知符号地址作为初始约束，初始化 LibcSearcher
-obj.add_condition("atoi", 218528) # 添加一个约束条件
-obj.dump("printf")	# 根据已有约束条件，查询某个符号在 Libc 中的地址
+obj.add_condition("atoi", 218528)			# 添加一个约束条件
+obj.dump("printf")							# 根据已有约束条件，查询某个符号在 Libc 中的地址
 ```
 
 > 此外，比起以上原版接口，添加了如下些许姿势
 
 ```python
-len(obj) # 返回在当前约束条件下，可能的 Libc 数量
+len(obj) 			# 返回在当前约束条件下，可能的 Libc 数量
 
 for libc in obj :
-	print(libc)	# 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
+	print(libc)		# 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
 
-obj.select_libc() # 打印可能的 Libc 列表，手动选择一个认为正确的 Libc
-obj.select_libc(2) # 手动选择 2 号 Libc 作为正确的 Libc
+obj.select_libc() 	# 打印可能的 Libc 列表，手动选择一个认为正确的 Libc
+obj.select_libc(2) 	# 手动选择 2 号 Libc 作为正确的 Libc
 ```
 
