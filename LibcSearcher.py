@@ -31,7 +31,7 @@ class LibcSearcher() :
         return iter([ libc['id'] for libc in self.libc_list ])
 
 
-    def add_condition(self, symbol_name:str, address:int) -> None :
+    def add_condition(self, symbol_name:str, address:int) :
         self.constraint[symbol_name] = address
         self.libc_list = []
         self.the_libc  = None
@@ -45,7 +45,7 @@ class LibcSearcher() :
         return self.query_symbol(libc_id = self.the_libc['id'], symbol_name = symbol_name)
 
 
-    def determine_the_libc(self) -> None :
+    def determine_the_libc(self) :
         if len(self.libc_list) == 0 :
             print("\x1b[1;31m" + "[+] No libc satisfies constraints." + "\x1b[0m")
             exit()
@@ -60,7 +60,7 @@ class LibcSearcher() :
             self.select_libc()
     
 
-    def select_libc(self, chosen_index=0xDEADBEEF) :
+    def select_libc(self, chosen_index:int=0xDEADBEEF) :
         if chosen_index == 0xDEADBEEF :
             self.query_libc()
             for index, libc in enumerate(self.libc_list) :
