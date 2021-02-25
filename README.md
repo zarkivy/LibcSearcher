@@ -18,7 +18,7 @@
 
 ## Installation
 
-#### 使用 PIP
+#### 使用 pip
 
 ```shell
 sudo pip3 install LibcSearcher
@@ -26,7 +26,7 @@ sudo pip3 install LibcSearcher
 
 更新
 
-```python
+```shell
 sudo pip3 install -U LibcSearcher
 ```
 
