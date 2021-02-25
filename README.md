@@ -18,6 +18,20 @@
 
 ## Installation
 
+#### 使用 PIP
+
+```shell
+sudo pip3 install LibcSearcher
+```
+
+更新
+
+```python
+sudo pip3 install -U LibcSearcher
+```
+
+#### 使用本仓库
+
 ```shell
 git clone https://github.com/IZAY01/LibcSearcher.git
 cd LibcSearcher

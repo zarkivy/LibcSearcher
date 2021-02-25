@@ -31,6 +31,10 @@ class LibcSearcher() :
         else :
             return iter([ self.the_libc['id'] ])
 
+
+    def __bool__(self) :
+        return (self.the_libc is not None) or (self.libc_list != [])
+
     
     def __repr__(self) :
         self.pre_query_libc()
