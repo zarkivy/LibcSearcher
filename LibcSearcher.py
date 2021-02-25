@@ -71,7 +71,6 @@ class LibcSearcher() :
         except IndexError :
             print("\x1b[1;31m[+] Index out of bound!\x1b[0;m")
             self.select_libc()
-                
 
 
     def query_libc(self) :
