@@ -6,7 +6,7 @@ API_LIBC = 'https://libc.rip/api/libc/'
 HEADERS = {'Content-Type': 'application/json'}
 
 
-class LibcSearcher(object) :
+class LibcSearcher() :
     def __init__(self, symbol_name:str=None, address:int=None) :
         self.constraint = {}
         self.libc_list  = []
@@ -14,6 +14,21 @@ class LibcSearcher(object) :
 
         if (symbol_name is not None) and (address is not None) :
             self.add_condition(symbol_name, address)
+
+
+    def __len__(self) :
+        if self.libc_list == [] :
+            self.query_libc()
+        if self.the_libc is None :
+            return len(self.libc_list)
+        else : 
+            return 1
+
+
+    def __iter__(self) :
+        if self.libc_list == [] :
+            self.query_libc()
+        return iter([ libc['id'] for libc in self.libc_list ])
 
 
     def add_condition(self, symbol_name:str, address:int) -> None :
@@ -26,13 +41,13 @@ class LibcSearcher(object) :
         if self.libc_list == [] :
             self.query_libc()
         if self.the_libc is None :
-            self.choose_libc()
+            self.determine_the_libc()
         return self.query_symbol(libc_id = self.the_libc['id'], symbol_name = symbol_name)
 
 
-    def choose_libc(self) -> None :
+    def determine_the_libc(self) -> None :
         if len(self.libc_list) == 0 :
-            print("\x1b[1;31m" + "No libc satisfies constraints." + "\x1b[0m")
+            print("\x1b[1;31m" + "[+] No libc satisfies constraints." + "\x1b[0m")
             exit()
 
         elif len(self.libc_list) == 1 :
@@ -40,12 +55,23 @@ class LibcSearcher(object) :
 
         else :
             print("\x1b[33m" + 
-                  "There are multiple libcs that satisfy current constraints :" + 
-                  "\x1b[0m")
+                    "[+] There are multiple libc that meet current constraints :" + 
+                    "\x1b[0m")
+            self.select_libc()
+    
+
+    def select_libc(self, chosen_index=-1) :
+        if chosen_index == -1 :
+            self.query_libc()
             for index, libc in enumerate(self.libc_list) :
                 print(str(index) + " - " + libc['id'])
-            choosen_index = input("\x1b[36mChoose one : \x1b[0m")
-            self.the_libc = self.libc_list[int(choosen_index)]
+            chosen_index = input("\x1b[33mChoose one : \x1b[0m")
+        try :
+            self.the_libc = self.libc_list[int(chosen_index)]
+        except IndexError :
+            print("\x1b[1;31m[+] Index out of bound!\x1b[0;m")
+            self.select_libc()
+                
 
 
     def query_libc(self) :
@@ -58,6 +84,9 @@ class LibcSearcher(object) :
 
 
     def query_symbol(self, libc_id:str, symbol_name:str) -> int :
-        payload = {"symbols": [symbol_name]}
+        payload = {
+                    "symbols": 
+                    [ symbol_name ]
+                  }
         result = requests.post(API_LIBC+libc_id, data=json.dumps(payload), headers=HEADERS)
         return int(json.loads(result.text)['symbols'][symbol_name], 16)

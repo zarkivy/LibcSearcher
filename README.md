@@ -3,9 +3,9 @@
 
 ## Introduction
 
-- 这里是全新的 LibcSearcher 实现。基于 [libc-database](https://github.com/niklasb/libc-database) 云端数据库而非本地数据库实现。
+- 这里是全新的 LibcSearcher 实现。基于 [libc-database](https://github.com/niklasb/libc-database) 云端数据库而非本地数据库。
 - [原版 LibcSearcher 仓库](https://github.com/lieanu/LibcSearcher)由于年久失修，经测试发现其基本失效。
-- 选择新开一个项目而非基于原有 LibcSearcher 继续开发的原因如下：
+- 选择新建一个项目而非基于原有 LibcSearcher 继续开发的原因如下：
   - 原仓库基于 libc-database ，拷贝其数据库中的部分常用 libc 文件，在本地进行求解。这一方案有两个问题：
     - libc 库不完整，仅包含了常用 libc 文件。若下载整个数据库则磁盘占用和下载成本过大。
     - 上游数据库更新时不方便及时获悉，且需要手动更新本地数据库。
@@ -24,13 +24,28 @@ cd LibcSearcher
 sudo python3 setup.py develop
 ```
 
+> 如要更新，只需拉取最新代码后，重新在仓库目录内执行 `sudo python3 setup.py develop`
+
 <br>
 
 ## Usage
 
 ```python
 from LibcSearcher import *
-obj = LibcSearcher("fgets", 0x7ff39014bd90)
-obj.add_condition("atoi", 218528)
-obj.dump("printf")
+obj = LibcSearcher("fgets", 0x7ff39014bd90) # 使用一个已知符号地址作为初始约束，初始化 LibcSearcher
+obj.add_condition("atoi", 218528) # 添加一个约束条件
+obj.dump("printf")	# 根据已有约束条件，查询某个符号在 Libc 中的地址
 ```
+
+> 此外，比起以上原版接口，添加了如下些许姿势
+
+```python
+len(obj) # 返回在当前约束条件下，可能的 Libc 数量
+
+for libc in obj :
+	print(libc)	# 实现了迭代器，打印(或其它操作)当前所有可能的 Libc 
+
+obj.select_libc() # 打印可能的 Libc 列表，手动选择一个认为正确的 Libc
+obj.select_libc(2) # 手动选择 2 号 Libc 作为正确的 Libc
+```
+
