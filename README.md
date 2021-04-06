@@ -13,6 +13,7 @@
 - 同时为了确保师傅们以前的 exp 的可用性，LibcSearcher-ng 将以与原 LibcSearcher 完全相同的接口来构建。
 - 比起原版 LibcSearcher 只多了一个缺点：断网就不可用了。🤣
 - 若需要基于本地数据库的~~可以抵御断网攻击的~~ LibcSearcher，github 上已有其他师傅维护了相应实现的 LibcSearcher 仓库。
+- 若获取结果有误或代码失效，请提 issue，我会及时修复。
 
 <br>
 
