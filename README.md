@@ -15,8 +15,11 @@
 - 若需要基于本地数据库的~~可以抵御断网攻击的~~ LibcSearcher，github 上已有其它维护了相应实现的仓库。
 - 若获取结果有误或代码失效，请提 issue，我会及时修复。
 
-> 目前发现libc-database所提供的服务器能承受的负载不高，有时会出现服务挂掉的情况（可能是难以处理国内的比赛期间大量的请求）
-> 可以使用如下命令直接测试服务器是否正常：curl -X POST -H 'Content-Type: application/json' --data '{"symbols": ["strcat"]}' 'https://libc.rip/api/libc/libc6_2.27-3ubuntu1.2_amd64'
+> 目前发现libc-database所提供的服务器能承受的负载不高，有时会出现服务挂掉的情况（可能是难以处理国内的比赛期间大量的请求）。
+
+> 可以使用如下命令直接测试服务器是否正常：
+
+`curl -X POST -H 'Content-Type: application/json' --data '{"symbols": ["strcat"]}' 'https://libc.rip/api/libc/libc6_2.27-3ubuntu1.2_amd64'`
 
 
 <br>
