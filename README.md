@@ -17,8 +17,6 @@
 
 > 目前发现libc-database所提供的服务器能承受的负载不高，有时会出现服务挂掉的情况（可能是难以处理国内的比赛期间大量的请求）。
 
-> 上游维护者：在修了在修了…… https://github.com/niklasb/libc-database/issues/47#issuecomment-850236211
-
 > 可以使用如下命令直接测试服务器是否正常：
 
 `curl -X POST -H 'Content-Type: application/json' --data '{"symbols": ["strcat"]}' 'https://libc.rip/api/libc/libc6_2.27-3ubuntu1.2_amd64'`
