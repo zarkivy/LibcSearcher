@@ -46,7 +46,7 @@ cd LibcSearcher
 python3 setup.py develop
 ```
 
-> 如要更新，只需拉取最新代码后，重新在仓库目录内执行 `sudo python3 setup.py develop`
+> 如要更新，只需拉取最新代码后，重新在仓库目录内执行 `python3 setup.py develop`
 
 <br>
 
